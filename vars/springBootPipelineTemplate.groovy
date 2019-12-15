@@ -1,11 +1,25 @@
 def call(Map pipelineParams) {
-
     pipeline {
         agent any
         stages {
-            stage('checkout git') {
+            stage('git clone') {
                 steps {
-                    sh "echo hello"
+                    git(url: pipelineParams.gitUrl, credentialsId: pipelineParams.gitCredentials, branch: pipelineParams.gitBranch)
+                }
+            }
+            stage('build') {
+                steps {
+                    sh 'mvn -DskipTests package'
+                }
+            }
+            stage('unit test') {
+                steps {
+                    sh 'mvn test'
+                }
+            }
+            stage('intergration test') {
+                steps {
+                    sh 'echo still need to be implemented'
                 }
             }
         }
