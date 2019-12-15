@@ -24,7 +24,9 @@ def call(Map pipelineParams) {
             }
             stage('docker build') {
                 steps {
-                    docker.build(pipelineParams.dockerImageName, "--force-rm --no-cache .")
+                    script {
+                        docker.build(pipelineParams.dockerImageName, "--force-rm --no-cache .")
+                    }
                 }
             }
         }
