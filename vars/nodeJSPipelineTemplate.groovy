@@ -14,12 +14,7 @@ def call(Map pipelineParams) {
             }
             stage('npm test') {
                 steps {
-                    sh 'npm test'
-                }
-            }
-            stage('npm lint') {
-                steps {
-                    sh 'echo need to implement'
+                    sh 'echo needs to be implemented'
                 }
             }
             stage('npm build') {
