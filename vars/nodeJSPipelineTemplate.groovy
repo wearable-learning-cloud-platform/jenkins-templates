@@ -12,14 +12,19 @@ def call(Map pipelineParams) {
                     sh 'npm install'
                 }
             }
+            stage('npm test') {
+                steps {
+                    sh 'npm test'
+                }
+            }
+            stage('npm lint') {
+                steps {
+                    sh 'echo need to implement'
+                }
+            }
             stage('npm build') {
                 steps {
                     sh 'npm run build:ui'
-                }
-            }
-            stage('npm test') {
-                steps {
-                    sh 'echo needs to be implemented'
                 }
             }
         }
