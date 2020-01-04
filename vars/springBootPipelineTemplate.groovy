@@ -1,4 +1,5 @@
 def call(Map pipelineParams) {
+    def dockerImage
     pipeline {
         agent any
         stages {
@@ -20,6 +21,18 @@ def call(Map pipelineParams) {
             stage('intergration test') {
                 steps {
                     sh 'echo still need to be implemented'
+                }
+            }
+            stage('docker build') {
+                steps {
+                    dockerImage = docker.build(pipelineParams.dockerImageName, "--force-rm --no-cache .")
+                }
+            }
+            stage('docker push') {
+                steps {
+                    docker.withRegistry(pipelineParams.dockerRegistry) {
+                        dockerImage.push();
+                    }
                 }
             }
         }
