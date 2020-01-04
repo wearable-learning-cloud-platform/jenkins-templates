@@ -25,13 +25,17 @@ def call(Map pipelineParams) {
             }
             stage('docker build') {
                 steps {
-                    dockerImage = docker.build(pipelineParams.dockerImageName, "--force-rm --no-cache .")
+                    script {
+                        dockerImage = docker.build(pipelineParams.dockerImageName, "--force-rm --no-cache .")
+                    }
                 }
             }
             stage('docker push') {
                 steps {
-                    docker.withRegistry(pipelineParams.dockerRegistry) {
-                        dockerImage.push();
+                    script {
+                        docker.withRegistry(pipelineParams.dockerRegistry) {
+                            dockerImage.push();
+                        }
                     }
                 }
             }
