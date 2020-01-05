@@ -33,7 +33,7 @@ def call(Map pipelineParams) {
             stage('docker push') {
                 steps {
                     script {
-                        docker.withRegistry(pipelineParams.dockerRegistry) {
+                        docker.withRegistry(pipelineParams.dockerRegistry, pipelineParams.dockerRegistryCredential) {
                             dockerImage.push();
                         }
                     }
