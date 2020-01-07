@@ -3,29 +3,29 @@ def call(Map pipelineParams) {
     pipeline {
         agent any
         stages {
-            stage('build') {
+            stage('Maven Build') {
                 steps {
                     sh 'mvn -DskipTests package'
                 }
             }
-            stage('unit test') {
+            stage('Run Unit Tests') {
                 steps {
                     sh 'mvn test'
                 }
             }
-            stage('intergration test') {
+            stage('Run Integration Tests') {
                 steps {
                     sh 'echo still need to be implemented'
                 }
             }
-            stage('docker build') {
+            stage('Docker Build') {
                 steps {
                     script {
-                        dockerImage = docker.build(pipelineParams.dockerImageName, "--force-rm --no-cache .")
+                        dockerImage = docker.build(pipelineParams.dockerImageName)
                     }
                 }
             }
-            stage('docker push') {
+            stage('Docker Push') {
                 steps {
                     script {
                         docker.withRegistry(pipelineParams.dockerRegistry, pipelineParams.dockerRegistryCredential) {
