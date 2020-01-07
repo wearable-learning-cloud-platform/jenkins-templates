@@ -1,4 +1,5 @@
 def call(Map pipelineParams) {
+    def dockerImage
     pipeline {
         agent any
         stages {
@@ -20,7 +21,7 @@ def call(Map pipelineParams) {
             stage('Docker Build') {
                 steps {
                     script {
-                        docker.build(pipelineParams.dockerImageName, "--force-rm --no-cache .")
+                        dockerImage = docker.build(pipelineParams.dockerImageName, "--force-rm --no-cache .")
                     }
                 }
             }
