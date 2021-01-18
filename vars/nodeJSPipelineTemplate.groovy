@@ -19,7 +19,6 @@ def call(Map pipelineParams) {
                 }
             }
             stage('Docker Build') {
-                agent any
                 when{
                     branch 'master'
                 }
@@ -30,7 +29,6 @@ def call(Map pipelineParams) {
                 }
             }
             stage('Docker Push') {
-                agent any
                 when{
                     branch 'master'
                 }
