@@ -19,6 +19,10 @@ def call(Map pipelineParams) {
                 }
             }
             stage('Docker Build') {
+                agent any
+                when{
+                    branch 'master'
+                }
                 steps {
                     script {
                         dockerImage = docker.build(pipelineParams.dockerImageName, "--force-rm --no-cache .")
@@ -26,6 +30,10 @@ def call(Map pipelineParams) {
                 }
             }
             stage('Docker Push') {
+                agent any
+                when{
+                    branch 'master'
+                }
                 steps {
                     script {
                         docker.withRegistry(pipelineParams.dockerRegistry, pipelineParams.dockerRegistryCredential) {
