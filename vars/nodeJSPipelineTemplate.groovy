@@ -20,17 +20,27 @@ def call(Map pipelineParams) {
             }
             stage('Docker Build') {
                 when{
-                    branch 'master'
+                    anyOf {
+                        branch 'master';
+                        branch 'dev'
+                    }
                 }
                 steps {
                     script {
-                        dockerImage = docker.build(pipelineParams.dockerImageName, "--force-rm --no-cache .")
+                        if (env.BRANCH_NAME == 'master') {
+                            dockerImage = docker.build(pipelineParams.dockerImageName, "--force-rm --no-cache .")
+                        } else if (env.BRANCH_NAME == 'dev') {
+                            dockerImage = docker.build(pipelineParams.dockerImageName + '-dev', "--force-rm --no-cache .")
+                        }
                     }
                 }
             }
             stage('Docker Push') {
                 when{
-                    branch 'master'
+                    anyOf {
+                        branch 'master';
+                        branch 'dev'
+                    }
                 }
                 steps {
                     script {
