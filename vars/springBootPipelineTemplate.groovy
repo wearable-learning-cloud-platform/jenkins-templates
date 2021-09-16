@@ -5,6 +5,15 @@ def call(Map pipelineParams) {
         stages {
             stage('Maven Build') {
                 steps {
+                	script {
+                		if(pipelineParams.containsKey("SSL")) {
+                			sh 'rm -rf src/main/resources/keystore'
+                			sh 'mkdir src/main/resources/keystore'
+                			withCredentials([file(credentialsId: pipelineParams.SSL, variable: 'FILE')]) {
+                				sh 'cp $FILE src/main/resources/keystore'
+                			}
+                		}	
+                	}
                     sh 'mvn -DskipTests package'
                 }
             }
