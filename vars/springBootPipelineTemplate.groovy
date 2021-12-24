@@ -7,6 +7,7 @@ def call(Map pipelineParams) {
                 steps {
                 	script {
                 		if(pipelineParams.containsKey("SSL")) {
+                            sh 'rm -rf target/classes/keystore'
                 			sh 'rm -rf src/main/resources/keystore'
                 			sh 'mkdir src/main/resources/keystore'
                 			withCredentials([file(credentialsId: pipelineParams.SSL, variable: 'FILE')]) {
