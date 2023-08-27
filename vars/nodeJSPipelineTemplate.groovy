@@ -5,7 +5,9 @@ def call(Map pipelineParams) {
         stages {
             stage('Node Pacakage Manager Install') {
                 steps {
-                    sh 'npm install'
+                    nodejs(nodeJSInstallationName: 'NodeJS') {
+                        sh 'npm install'
+                    }
                 }
             }
             stage('Node Pacakage Manager Test') {
