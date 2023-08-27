@@ -18,6 +18,7 @@ def call(Map pipelineParams) {
             stage('Node Pacakage Manager Build') {
                 steps {
                     nodejs(nodeJSInstallationName: 'NodeJS') {
+                        sh 'ui5 -v'
                         sh 'npm run build:ui'
                     }
                 }
