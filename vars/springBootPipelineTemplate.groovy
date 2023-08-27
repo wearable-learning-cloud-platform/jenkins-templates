@@ -15,7 +15,7 @@ def call(Map pipelineParams) {
                 			}
                 		}	
                 	}
-                    withMaven  {
+                    withMaven(maven: 'maven')  {
                         sh 'mvn -DskipTests package'
                     }
                 }
