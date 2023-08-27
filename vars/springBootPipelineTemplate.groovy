@@ -22,7 +22,9 @@ def call(Map pipelineParams) {
             }
             stage('Run Unit Tests') {
                 steps {
-                    sh 'mvn test'
+                    withMaven(maven: 'Maven')  {
+                        sh 'mvn test'
+                    }
                 }
             }
             stage('Run Integration Tests') {
