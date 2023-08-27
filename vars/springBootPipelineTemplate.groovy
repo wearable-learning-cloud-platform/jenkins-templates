@@ -15,7 +15,9 @@ def call(Map pipelineParams) {
                 			}
                 		}	
                 	}
-                    sh 'mvn -DskipTests package'
+                    withMaven  {
+                        sh 'mvn -DskipTests package'
+                    }
                 }
             }
             stage('Run Unit Tests') {
