@@ -17,7 +17,9 @@ def call(Map pipelineParams) {
             }
             stage('Node Pacakage Manager Build') {
                 steps {
-                    sh 'npm run build:ui'
+                    nodejs(nodeJSInstallationName: 'NodeJS') {
+                        sh 'npm run build:ui'
+                    }
                 }
             }
             stage('Docker Build') {
